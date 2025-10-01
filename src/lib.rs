@@ -1,35 +1,14 @@
 #![doc = include_str!("../README.md")]
 
-use anyhow::Ok;
+#[cfg(feature = "build")]
 use git2::{DescribeFormatOptions, DescribeOptions, Repository};
-
-/// GitVersion configuration structure
-///
-/// This should usually be instantiated with `GitVersionCfg::default()` which
-/// will automatically load the current package name and set the repository path
-/// to the current directory. Both fields can be overridden if necessary.
-#[derive(Clone, Debug, PartialEq)]
-pub struct GitVersionCfg {
-    /// The name of the environment variable to set
-    pub var_name: String,
-    /// The path to the git repository
-    pub repo_path: String,
-}
-
-impl Default for GitVersionCfg {
-    fn default() -> Self {
-        Self {
-            var_name: env!("CARGO_PKG_NAME").to_uppercase() + "_GIT_VERSION",
-            repo_path: "./".to_string(),
-        }
-    }
-}
 
 /// Retrieves the current git version description from the repository
 /// located at `repo_path` using `git describe --tags --dirty=+` and
 /// exports this to a `PACKAGE_NAME_GIT_VERSION` environmental variable
 /// for use in the build process.
 /// This function should be called from build.rs.
+#[cfg(feature = "build")]
 pub fn export_version(repo_path: &str) -> anyhow::Result<()> {
     // Fetch version string
     let git_desc = build_get_version(repo_path)?;
@@ -51,6 +30,7 @@ pub const fn get_version() -> &'static str {
 
 /// Retrieves the current git version description from the repository
 /// located at `repo_path` using `git describe --tags --dirty=+`
+#[cfg(feature = "build")]
 fn build_get_version(repo_path: &str) -> anyhow::Result<String> {
     // Connect to the repository
     let repo = Repository::open(repo_path)?;
@@ -70,11 +50,13 @@ mod tests {
     use super::*;
 
     #[test]
+    #[cfg(feature = "build")]
     fn get_version() {
         build_get_version(&"./").unwrap();
     }
 
     #[test]
+    #[cfg(feature = "build")]
     fn export_var() {
         export_version(&"./").unwrap();
     }

@@ -7,7 +7,12 @@ license = "MIT"
 version = "0.1.1"
 edition = "2024"
 
+[features]
+build = [ "git2", "anyhow" ]
+
+default = [ "build" ]
+
 [dependencies]
-git2 = "0.20"
-anyhow = "1.0"
+git2 = { version = "0.20", optional = true }
+anyhow = { version = "1.0", optional = true }
 
