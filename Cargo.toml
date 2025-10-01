@@ -4,7 +4,7 @@ repository = "https://github.com/ryankurte/rust-git-describe"
 description = "A Rust library to inject and parse git version information at build time"
 authors = ["Ryan Kurte <ryan@kurte.nz>"]
 license = "MIT"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 
 [dependencies]
