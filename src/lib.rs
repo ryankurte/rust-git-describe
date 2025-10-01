@@ -45,7 +45,7 @@ pub fn export_version(repo_path: &str) -> anyhow::Result<()> {
 /// Fetch the git version string from the environment variable set at build time
 /// by `GitVersionCfg::export_var()`. This will be in the format produced by
 /// `git describe --tags --dirty=+`.
-pub fn get_version() -> &'static str {
+pub const fn get_version() -> &'static str {
     env!(concat!(env!("CARGO_PKG_NAME"), "_GIT_VERSION"))
 }
 
