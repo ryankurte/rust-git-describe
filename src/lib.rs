@@ -67,23 +67,15 @@ fn build_get_version(repo_path: &str) -> anyhow::Result<String> {
 
 #[cfg(test)]
 mod tests {
-    use std::env;
-
     use super::*;
 
     #[test]
     fn get_version() {
-        let result = build_get_version(&"./");
-        assert!(result.is_ok());
+        build_get_version(&"./").unwrap();
     }
 
     #[test]
     fn export_var() {
-        let cfg = GitVersionCfg::default();
-        let result = cfg.export_var();
-        assert!(result.is_ok());
-
-        let value = env::var(&cfg.var_name);
-        assert!(value.is_ok());
+        export_version(&"./").unwrap();
     }
 }

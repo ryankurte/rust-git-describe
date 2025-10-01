@@ -11,5 +11,3 @@ edition = "2024"
 git2 = "0.20"
 anyhow = "1.0"
 
-[build-dependencies]
-git-describe = { path = "./" }

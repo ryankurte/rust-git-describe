@@ -1,7 +1,9 @@
-use git_describe::GitVersionCfg;
 
-fn main() -> anyhow::Result<()> {
-    // Export the current git describe version string to an environmental variable
-    let cfg = GitVersionCfg::default().export_var()?;
-    Ok(())
+fn main() {
+    // Fake the version export here for testing / examples
+    println!(
+        "cargo:rustc-env={}_GIT_VERSION={}",
+        env!("CARGO_PKG_NAME"),
+        env!("CARGO_PKG_VERSION")
+    );
 }
